@@ -5,6 +5,15 @@
  * 
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define true 1
+#define false 0
+
+typedef int boolean;
+
 /*
 1. Рассчитать и вывести индекс массы тела по формуле I = m / (h * h), где m – масса тела в килограммах, h – рост в метрах.
 2. Написать программу нахождения корней заданного квадратного уравнения.
@@ -14,10 +23,6 @@
 5. * Автоморфные числа. Натуральное число называется автоморфным, если оно равно последним цифрам своего квадрата. 
 Например, 25 ^ 2 = 625. Напишите функцию, которая выводит на экран все автоморфные числа, меньше десяти тысяч
 */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
 // Задание с урока.
 void average() {
@@ -78,70 +83,59 @@ void qEquation(float a, float b, float c) {
 }
 
 // 3. Ввести возраст человека (от 1 до 150 лет) и вывести его вместе со словом «год», «года» или «лет».
-void printAge(int a) {
+char* ageAdder(int a) {
   int t = a % 100;
   int b = t % 10;
-  if ((t < 11) || (t > 14)) {
-    switch (b) 
-    {
-      case 1:
-        printf("Возраст %d год\n", a);
-        break;
-      case 2:
-        printf("Возраст %d года\n", a);
-        break;
-      case 3:
-        printf("Возраст %d года\n", a);
-        break;
-      case 4:
-        printf("Возраст %d года\n", a);
-        break;
-      default:
-        printf("Возраст %d лет\n", a);
-        break;
-    }
+  if ((t != 11) && (b == 1)) {
+    return "год";
+  } else if (((b > 1) && (b < 5)) && 
+                ((t > 14) || (t < 11))) {
+    return "года";
   } else {
-    printf("Возраст %d лет\n", a);
+    return "лет";
   }
 }
 
 // 4. Даны числовые координаты двух полей шахматной доски (x1, y1, x2, y2). 
 // Требуется определить, относятся ли к поля к одному цвету или нет.
-void chess(int x1, int y1, int x2, int y2) {
-  int res = (x1 + y1 + x2 + y2) % 2;
-  if (res == 0) {
-    printf("True\n");
-  } else {
-    printf("False\n");
-  }
+boolean areSame(int x1, int y1, int x2, int y2) {
+  return (x1 + y1 + x2 + y2) % 2 == 0;
 }
 
 // 5. * Автоморфные числа. Натуральное число называется автоморфным, если оно равно последним цифрам своего квадрата. 
 // Например, 25 ^ 2 = 625. Напишите функцию, которая выводит на экран все автоморфные числа, меньше десяти тысяч
-void printAutomorphic() {
-  int num = 0;
-  while(num < 10000) {
-    int sqrtNum = num * num - num;
-    int tmp = num;
-    int res = 0;
-    do {
-      res += sqrtNum % 10;
-      sqrtNum /= 10;
-    } while ((tmp /= 10) != 0);
-
-    if (res == 0) {
-      printf("%d; ", num);
-    }
-    num++;
-  }
+boolean isAutomorphic(num) {
+  int sqrtNum = num * num - num;
+  int tmp = num;
+  int res = 0;
+  do {
+    res += sqrtNum % 10;
+    sqrtNum /= 10;
+  } while ((tmp /= 10) != 0);
+  return res == 0;
 }
 
 int main(int argc, const char** argv) {
   // averageFix();
+  
+  // 1
   // printf("%.2f\n", BMI(63, 1.69));
+
+  // 2
   // qEquation(20.9, 35.8, 6);
-  // printAge(13);
-  // chess(1, 2, 7, 8);
-  // printAutomorphic();
+
+  // 3
+  // int age = 111;
+  // printf("Возраст %d %s\n", age, ageAdder(age));
+
+  // 4
+  // printf("Colors are %s \n", areSame(1, 2, 7, 8) ? "same" : "different");
+  
+  // 5
+  // for (int num = 0; num < 10000; num++){
+  //   if (isAutomorphic(num))
+  //     printf("Number %d is automorphic to %d\n", num, num*num);
+  // }
+  
   return 0;
 }
